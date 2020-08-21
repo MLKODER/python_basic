@@ -11,9 +11,10 @@
 """
 #以下这段函数可以通过一个一个推导写出来
 def matrix_transposition(matrix_list):
-    for row in range(0,len(matrix_list)):
+    #也可以从0开始取，但是这样不好，因为多执行了n次对调，所以row从1开始取
+    for row in range(1,len(matrix_list)):
         for column in range(row, len(matrix_list)):
-            matrix_list[row][column], matrix_list[column][row] = matrix_list[column][row], matrix_list[row][column]
+            matrix_list[row-1][column], matrix_list[column][row-1] = matrix_list[column][row-1], matrix_list[row-1][column]
     return matrix_list
 list01 = [
     [1,2,3,4],

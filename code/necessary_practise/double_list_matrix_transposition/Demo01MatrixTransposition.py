@@ -15,7 +15,6 @@ def matrix_transposition(matrix_list):
     for row in range(1,len(matrix_list)):
         for column in range(row, len(matrix_list)):
             matrix_list[row-1][column], matrix_list[column][row-1] = matrix_list[column][row-1], matrix_list[row-1][column]
-    return matrix_list
 list01 = [
     [1,2,3,4],
     [5,6,7,8],
@@ -23,7 +22,8 @@ list01 = [
     [13,14,15,16]
     ]
 #以矩阵的形式打出来
-for item in matrix_transposition(list01):
+matrix_transposition(list01)
+for item in list01:
     for i in item:
         print(i, end=" ")
     print(" ")

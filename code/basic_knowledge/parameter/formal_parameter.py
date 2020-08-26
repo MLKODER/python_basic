@@ -55,3 +55,10 @@ fun05(a=1, b=2)
 
 # 5. 双星号字典形参：**目的是将实参合并为字典.
 #               实参可以传递数量无限的关键字实参.
+def fun06(**kwargs):#一般这个地方要写成kwargs这样
+    print(kwargs)
+fun06(a=1, b=2)
+
+# 练习:调用fun07。
+def fun07(a, b, *args, c, d, **kwargs):
+    pass

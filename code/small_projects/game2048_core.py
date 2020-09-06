@@ -7,10 +7,10 @@
 #    [2,4,0,2]  --> [2,4,2,0]
 def move_zero_bottom(listA):
     for c in range(len(listA)):
-        for i in range(-1, -(len(listA)-c),-1):
+        for i in range(c+1, len(listA)):
             if listA[c] == 0 and listA[i] != 0:
                 listA[c], listA[i] = listA[i], listA[c]
                 break
-list01=[2,4,0,2]
+list01=[2,4,0,5,0,0,2,0,6]
 move_zero_bottom(list01)
 print(list01)

@@ -53,7 +53,7 @@ def move_back_zero(listD):
             if listD[i] == 0 and listD [x] != 0:
                 listD[i], listD[x] = listD[x],listD[i]
                 break
-list03=[2,2,2,0]
+list03=[4,4,0,2]
 combine_and_moveZero(list03)
 print(list03)
 
@@ -65,6 +65,6 @@ def move_to_back(listE):
             listE[i] += listE[i+1]
             del listE[i+1]
             listE.append(0)
-list04 = [2,2,2,0]
+list04 = [4,4,0,2]
 move_to_back(list04)
 print(list04)

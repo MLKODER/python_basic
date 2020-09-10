@@ -68,3 +68,49 @@ def move_to_back(listE):
 list04 = [4,4,0,2]
 move_to_back(list04)
 print(list04)
+
+#练习3.1 地图向左移动
+
+map=[
+    [2, 0, 0, 2],
+    [4, 4, 2, 2],
+    [2, 4, 0, 4],
+    [0, 0, 2, 2],
+]
+#思想一：传值函数
+def move_leftI(listM):
+    for line in listM:
+        move_to_back(line)
+move_leftI(map)
+print(map)
+
+map=[
+    [2, 0, 0, 2],
+    [4, 4, 2, 2],
+    [2, 4, 0, 4],
+    [0, 0, 2, 2],
+]
+
+#思想二：不传值函数，即无参函数
+def move_left():
+    for line in map:
+        global list_merge
+        list_merge = line
+        move_to_back(list_merge)
+move_left()
+print(map)
+
+map=[
+    [2, 0, 0, 2],
+    [4, 4, 2, 2],
+    [2, 4, 0, 4],
+    [0, 0, 2, 2],
+]
+#练习3.2 地图向右移动
+def move_right():
+    for line in map:
+        global list_mergeI
+        list_mergeI = line[::-1]
+        move_to_back(list_mergeI)
+move_right()
+print(map)

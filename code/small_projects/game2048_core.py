@@ -1,116 +1,123 @@
 """
-2048  游戏核心算法
+    ２０４８　游戏核心算法
+    16:50
 """
+
+list_merge = None
+
+
 # 练习１：零元素移至末尾
 # 　　[2,0,2,0]  --> [2,2,0,0]
 #    [2,0,0,2]  --> [2,2,0,0]
 #    [2,4,0,2]  --> [2,4,2,0]
 
-#思想一：从前往后，两个for循环遍历，逐个移动
-def move_zero_bottom(listA):
-    for c in range(len(listA)):
-        for i in range(c+1, len(listA)):
-            if listA[c] == 0 and listA[i] != 0:
-                listA[c], listA[i] = listA[i], listA[c]
-                break
-list01=[0,2,4,0,5,0,0,2,0,6]
-move_zero_bottom(list01)
-print(list01)
+def zero_to_end():
+    """
+        零元素移动到末尾.
+    """
 
-#思想二：从后向前，如果发现零元素，删除并追加.
-#1. 不能从前往后遍历，原因可以debug看
-#2. 注意如何取的坐标
-#3. del的用法要结合坐标使用，直接删除del item会报错
-def zero_to_end(listB):
-    for i in range(-1, -len(listB) - 1, -1):
-        if listB[i] == 0:
-            del listB[i]
-            listB.append(0)
-list02=[0,2,4,0,5,0,0,2,0,6]
-zero_to_end(list02)
-print(list02)
+    # 思想：从后向前，如果发现零元素，删除并追加.
+    for i in range(-1, -len(list_merge) - 1, -1):
+        if list_merge[i] == 0:
+            del list_merge[i]
+            list_merge.append(0)
 
 
-# 练习2：将相同数字合并（只合并一次）
+# 测试．．．
+# zero_to_end()
+# print(list_merge)
+
+
+# 练习2：将相同数字合并 14:38
 # 　　[2,2,0,0]  --> [4,0,0,0]
 #    [2,0,0,2]  --> [4,0,0,0]
 #    [2,0,4,0]  --> [2,4,0,0]
 #    [2,2,2,2]  --> [4,4,0,0]
 #    [2,2,2,0]  --> [4,2,0,0]
+def merge():
+    """
+        合并
+    """
+    # 先将中间的零元素移到末尾
+    # 再合并相邻相同元素
+    zero_to_end()
 
-#思想一：先遍历看有没有相同的，然后移动0
-def combine_and_moveZero(listC):
-    for i in range(len(listC)):
-        for x in range(i+1, len(listC)):
-            if listC[i] == listC[x]:
-                listC[i] += listC[x]
-                listC[x] = 0
-                break
-    move_back_zero(listC)
-def move_back_zero(listD):
-    for i in range(len(listD)):
-        for x in range(i+1, len(listD)):
-            if listD[i] == 0 and listD [x] != 0:
-                listD[i], listD[x] = listD[x],listD[i]
-                break
-list03=[4,4,0,2]
-combine_and_moveZero(list03)
-print(list03)
+    for i in range(len(list_merge) - 1):
+        if list_merge[i] == list_merge[i + 1]:
+            # 将后一个累加前一个之上
+            list_merge[i] += list_merge[i + 1]
+            del list_merge[i + 1]
+            list_merge.append(0)
 
-#思想二：先移动0，后累加相同的数字
-def move_to_back(listE):
-    zero_to_end(listE)
-    for i in range(len(listE)-1):
-        if listE[i] == listE[i+1]:
-            listE[i] += listE[i+1]
-            del listE[i+1]
-            listE.append(0)
-list04 = [4,4,0,2]
-move_to_back(list04)
-print(list04)
 
-#练习3.1 地图向左移动
+# 测试...
+# merge()
+# print(list_merge)
 
-map=[
-    [2, 0, 0, 2],
-    [4, 4, 2, 2],
-    [2, 4, 0, 4],
-    [0, 0, 2, 2],
-]
-#思想一：传值函数
-def move_leftI(listM):
-    for line in listM:
-        move_to_back(line)
-move_leftI(map)
-print(map)
-
-map=[
+# 练习3:地图向左移动
+map = [
     [2, 0, 0, 2],
     [4, 4, 2, 2],
     [2, 4, 0, 4],
     [0, 0, 2, 2],
 ]
 
-#思想二：不传值函数，即无参函数
+
 def move_left():
+    """
+        向左移动
+    """
+    # 思想:将二维列表中每行交给merge函数进行操作
     for line in map:
         global list_merge
         list_merge = line
-        move_to_back(list_merge)
+        merge()
+        print(line)
+
+
 move_left()
 print(map)
 
-map=[
-    [2, 0, 0, 2],
-    [4, 4, 2, 2],
-    [2, 4, 0, 4],
-    [0, 0, 2, 2],
-]
-#练习3.2 地图向右移动
 def move_right():
+    """
+        向右移动
+    """
+    # 思想:将二维列表中每行(从右向左)交给merge函数进行操作
     for line in map:
-        global list_mergeI
-        list_mergeI = line[::-1]
-        move_to_back(list_mergeI)
-move_right()
-print(map)
+        global list_merge
+        # 从右向左取出数据　形成　新列表
+        list_merge = line[::-1]
+        merge()
+        # 从右向左接受　合并后的数据　
+        line[::-1] = list_merge
+
+
+# move_right()
+# print(map)
+
+# 练习4:向上移动　　向下移动
+def move_up():
+    square_matrix_transpose(map)
+    move_left()
+    square_matrix_transpose(map)
+
+
+def move_down():
+    square_matrix_transpose(map)
+    move_right()
+    square_matrix_transpose(map)
+
+
+# 提示:利用方阵转置函数
+def square_matrix_transpose(sqr_matrix):
+    """
+        方阵转置
+    :param sqr_matrix: 二维列表类型的方阵
+    """
+    for c in range(1, len(sqr_matrix)):
+        for r in range(c, len(sqr_matrix)):
+            sqr_matrix[r][c - 1], sqr_matrix[c - 1][r] = sqr_matrix[c - 1][r], sqr_matrix[r][c - 1]
+
+
+# move_down()
+# print(map)

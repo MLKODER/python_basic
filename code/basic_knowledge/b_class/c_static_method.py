@@ -15,7 +15,7 @@ list01 = [
     ["20", "21", "22", "23"],
 ]
 
-
+#下面这个可以记下来，很有用
 class Vector2:
     """
         二维向量
@@ -64,6 +64,7 @@ class DoubleListHelper:
         for i in range(count):
             vect_pos.x += vect_dir.x
             vect_pos.y += vect_dir.y
+            #获取这个位置的元素
             element = target[vect_pos.x][vect_pos.y]
             list_result.append(element)
         return list_result

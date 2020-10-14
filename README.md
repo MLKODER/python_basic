@@ -1,2 +1,2 @@
-#Hacktoberfest-Python
-##python_basic
+# Hacktoberfest-Python
+## python_basic
